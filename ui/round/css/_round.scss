@@ -14,3 +14,55 @@
 @import 'now-playing';
 @import 'forecast-info';
 @import 'streamer';
+
+cg-container move-notation {
+  --tx: 0;
+  --ty: 0;
+
+  position: absolute;
+  z-index: $z-above-pieces-9;
+  pointer-events: none;
+  padding: 0.05em 0.35em;
+  border-radius: 0.4em;
+  background: rgb(0 0 0 / 0.75);
+  color: #fff;
+  font-size: calc(var(---cg-width, 512px) / 20);
+  font-weight: bold;
+  line-height: 1.2;
+  white-space: nowrap;
+  animation: move-notation 1.5s ease-out forwards;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation-name: move-notation-no-drift;
+  }
+}
+
+@keyframes move-notation {
+  0% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty));
+  }
+
+  8%,
+  55% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), calc(var(--ty) - 50%));
+  }
+}
+
+@keyframes move-notation-no-drift {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty));
+  }
+
+  8%,
+  55% {
+    opacity: 1;
+  }
+}

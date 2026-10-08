@@ -25,6 +25,14 @@ export default function (ctrl: RoundController): LooseVNode {
           toggle(ctrl.blindfold(), v => ctrl.blindfold(v)),
           !spectator,
         ),
+        cmnToggleWrap({
+          id: 'moveNotation',
+          name: 'Show move notation on board',
+          title: 'Briefly display each move (e.g. e4, Nf3) above its square',
+          checked: ctrl.moveNotation(),
+          change: ctrl.moveNotation,
+          redraw: ctrl.redraw,
+        }),
         'vibrate' in navigator &&
           cmnToggleWrap({
             id: 'haptics',

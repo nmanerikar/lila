@@ -50,6 +50,7 @@ import type {
   EventsWithPayload,
 } from './interfaces';
 import { init as keyboardInit } from './keyboard';
+import { showMoveNotation } from './moveNotation';
 import MoveOn from './moveOn';
 import Server from './server';
 import { make as makeSocket, type RoundSocket } from './socket';
@@ -99,6 +100,7 @@ export default class RoundController implements MoveRootCtrl {
   nvui?: NvuiPlugin;
   vibration: Prop<boolean> = storedBooleanProp('vibration', false);
   streamer: Prop<boolean> = storedBooleanProp('streamermode', false);
+  moveNotation: Prop<boolean> = storedBooleanProp('round.moveNotation', false);
 
   constructor(
     readonly opts: RoundOpts,
@@ -461,6 +463,7 @@ export default class RoundController implements MoveRootCtrl {
         site.sound.play('check', o.volume);
       }
       blur.onMove();
+      if (this.moveNotation()) showMoveNotation(this.chessground, o);
       pubsub.emit('ply', this.ply);
     }
     d.game.threefold = !!o.threefold;
